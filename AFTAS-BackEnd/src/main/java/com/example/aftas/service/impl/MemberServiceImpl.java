@@ -1,19 +1,29 @@
 package com.example.aftas.service.impl;
 
+import com.example.aftas.config.handlers.exception.CustomException;
 import com.example.aftas.model.Member;
+import com.example.aftas.model.Role;
 import com.example.aftas.repository.MemberRepository;
+import com.example.aftas.repository.RoleRepository;
 import com.example.aftas.service.MemberService;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final RoleRepository roleRepository;
 
-    public MemberServiceImpl(MemberRepository memberRepository) {
+
+    public MemberServiceImpl(MemberRepository memberRepository, RoleRepository roleRepository) {
         this.memberRepository = memberRepository;
+        this.roleRepository = roleRepository;
     }
     @Override
     public Member getMemberById(Long id) {
@@ -81,4 +91,26 @@ public class MemberServiceImpl implements MemberService {
         Random random = new Random();
         return random.nextInt(1000000) + 1;
     }
+
+    //Security
+    @Override
+    public Role grantRoleToUser(Long userId, Long roleId) {
+        List<String> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
+        if (authorities.contains("ASSIGN_ROLE_TO_USER")) {
+            Role role = roleRepository.findById(roleId).orElse(null);
+            Member user = memberRepository.findById(userId).orElse(null);
+            if (role != null && user != null) {
+                user.setRole(role);
+                memberRepository.save(user);
+                return role;
+            }
+            throw new CustomException("Role or user not found", HttpStatus.NOT_FOUND);
+        }throw new CustomException("Insufficient authorities", HttpStatus.UNAUTHORIZED);
+    }
+
+    @Override
+    public Optional<Member> getById(Long id) {
+        return Optional.empty();
+    }
+
 }
