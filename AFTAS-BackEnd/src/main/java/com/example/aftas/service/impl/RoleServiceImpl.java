@@ -32,6 +32,7 @@ public class RoleServiceImpl implements RoleService {
         if (authorities.contains("VIEW_ROLES"))
             return roleRepository.findAll();
         else {
+            //Returning empty list to fix bug where user with no authority cannot access the application
             return List.of();
         }
     }
