@@ -6,7 +6,6 @@ import com.example.aftas.dto.response.AuthenticationResponse;
 import org.springframework.stereotype.Component;
 
 
-@Component
 public interface AuthenticationService {
 
     AuthenticationResponse register(RegisterRequest user);

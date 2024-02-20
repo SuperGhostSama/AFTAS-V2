@@ -9,7 +9,7 @@ import java.util.List;
 
 public record RoleResponseDTO(
         String name,
-        List<AuthorityEnum> authorities,
+        List<String> authorities,
         boolean isDefault
 ) {
     public static RoleResponseDTO fromRole(Role role){

@@ -81,7 +81,7 @@ public class Member implements UserDetails {
     //SpringSecurity
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getName().name())).toList();
+        return role.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getName())).toList();
     }
 
     @Override

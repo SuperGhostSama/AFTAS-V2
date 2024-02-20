@@ -27,10 +27,9 @@ public class AuthorityServiceImpl implements AuthorityService {
         return null;
     }
     @Override
-    public Optional<Authority> getByName(AuthorityEnum authorityEnum) {
-        return authorityRepository.findByName(authorityEnum);
+    public Optional<Authority> getByName(String authorityEnum) {
+        return authorityRepository.findByName(String.valueOf(authorityEnum));
     }
-
     @Override
     public Optional<Authority> getById(Long id) {
         return authorityRepository.findById(id);

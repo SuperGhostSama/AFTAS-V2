@@ -17,6 +17,6 @@ public interface AuthorityRepository extends JpaRepository<Authority, Long> {
     @Query(value = "SELECT * FROM authority WHERE name IN :authorities", nativeQuery = true)
     List<Authority> findAllByName(@Param("authorities") List<AuthorityEnum> authorities);
 
-        Optional<Authority> findByName(AuthorityEnum authorityEnum);
+        Optional<Authority> findByName(String authorityEnum);
 
 }

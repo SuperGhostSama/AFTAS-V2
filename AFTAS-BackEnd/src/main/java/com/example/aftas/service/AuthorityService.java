@@ -7,10 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-@Component
 public interface AuthorityService {
     List<Authority> getAllByName(List<AuthorityEnum> authorities);
-    Optional<Authority> getByName(AuthorityEnum authorityEnum);
+    Optional<Authority> getByName(String authorityEnum);
 
     Optional<Authority> getById(Long id);
 }

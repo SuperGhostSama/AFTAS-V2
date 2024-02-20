@@ -22,6 +22,6 @@ public class Authority {
     @ManyToMany(mappedBy = "authorities")
     private List<Role> roles;
 
-    @Enumerated(EnumType.STRING)
-    private AuthorityEnum name;
+
+    private String name;
 }

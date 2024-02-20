@@ -27,7 +27,7 @@ public class AuthoritySeeder implements CommandLineRunner {
         List<Authority> authorities = new ArrayList<>();
         for (AuthorityEnum authorityName : AuthorityEnum.values()) {
             Authority authority = Authority.builder()
-                    .name(authorityName)
+                    .name(authorityName.toString())
                     .build();
             authorities.add(authority);
         }
