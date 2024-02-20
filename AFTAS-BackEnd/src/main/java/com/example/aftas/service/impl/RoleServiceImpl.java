@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ public class RoleServiceImpl implements RoleService {
 
     private final AuthorityService authorityService;
     private final RoleRepository roleRepository;
+
     @Override
     public List<Role> getAll(){
         List<String> authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
@@ -30,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
         if (authorities.contains("VIEW_ROLES"))
             return roleRepository.findAll();
         else {
-            return null;
+            return List.of();
         }
     }
 
@@ -53,6 +55,7 @@ public class RoleServiceImpl implements RoleService {
         }
         return roleRepository.save(role);
     }
+
     @Override
     public Optional<Role> findDefaultRole(){
         return roleRepository.findByIsDefaultTrue();
@@ -75,7 +78,6 @@ public class RoleServiceImpl implements RoleService {
         }
         return null;
     }
-
 
     @Override
     public Role revokeAuthorities(Long authorityId, Long roleId){
