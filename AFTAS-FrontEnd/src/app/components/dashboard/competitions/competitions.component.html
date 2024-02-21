@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-end mb-3">
+    <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-competition"><i class="bi bi-plus-circle me-1"></i>Add Competition</a>
+</div>
+
+
+<div class="border border-5 p-3">
+    <table class="table " style="width:100%" id="competitionTable">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">Code</th>
+        <th scope="col" class="text-center">Date</th>
+        <th scope="col" class="text-center">StartTime</th>
+        <th scope="col" class="text-center">EndTime</th>
+        <th scope="col" class="text-center">Participants</th>
+        <th scope="col" class="text-center">Location</th>
+        <th scope="col" class="text-center">Amount</th>
+      </tr>
+    </thead>
+
+    <!-- <tbody>
+      <tr *ngFor="let competition of competitions">
+        <th scope="row" class="text-center">{{ competition.code }}</th>
+        <td class="text-center">{{ competition.date }}</td>
+        <td class="text-center">{{ competition.startTime }}</td>
+        <td class="text-center">{{ competition.endTime }}</td>
+        <td class="text-center">{{ competition.numberOfParticipants }}</td>
+        <td class="text-center">{{ competition.location }}</td>
+        <td class="text-center">{{ competition.amount }}</td>
+        <td class="text-center">
+            <a id="edit-button"  href="" data-bs-toggle="modal" class="me-1"><i class="bi bi-pencil-square"></i></a>
+            <a class="unstyled" type="submit" class="ms-1"><i class="bi bi-trash"></i></a>
+        </td>
+      </tr>
+      
+    </tbody> -->
+
+    </table>
+</div>
+
+<!-- Modal -->
+<app-competitions-modal></app-competitions-modal>

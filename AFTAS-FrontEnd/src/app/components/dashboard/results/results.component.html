@@ -1,0 +1,44 @@
+<div class="border border-5 p-5">
+  <form>
+    <div class="mb-3">
+      <label for="selectOption" class="form-label">Competitions</label>
+      <select class="form-select" id="selectOption" name="selectOption" [(ngModel)]="selectedOpenCompetitionId" (ngModelChange)="onSelectChange()">
+        <option *ngFor="let competition of openCompetitions" [value]="competition.id">
+          {{ competition.code }}
+        </option>
+      </select>
+    </div>
+
+  </form>
+</div>
+
+
+<div class="border border-5 p-5 mt-5">
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="selectMember" class="form-label">Select Member</label>
+        <select class="form-select" id="selectMember" name="selectMember" [(ngModel)]="selectedOpenCompetitionsMembersId">
+          <option value="" hidden>Select Member</option>
+          <option *ngFor="let members of openCompetitionsMembers" [value]="members.id">{{ members.name }} {{ members.familyName }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="selectFish" class="form-label">Select Fish</label>
+        <select class="form-select" id="selectFish" name="selectFish" [(ngModel)]="selectedFishId">
+          <option value="" hidden>Select Fish</option>
+          <option *ngFor="let fish of fishes" [value]="fish.id">{{ fish.name }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Fish Weight</label>
+        <input name="weight" type="number" class="form-control" id="weight" required [(ngModel)]="fishWeight"/>
+      </div>
+      
+
+      <button type="submit" class="btn btn-primary" [disabled]="!selectedOpenCompetitionsMembersId || !selectedFishId || !fishWeight ">Submit</button>
+
+      <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+    </form>
+</div>

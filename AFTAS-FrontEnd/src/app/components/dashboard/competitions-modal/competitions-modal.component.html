@@ -1,0 +1,49 @@
+<!-- MODAL -->
+<div class="modal fade" #competitionModal id="modal-competition" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Use ngForm directive for Angular forms -->
+            <form #competitionForm="ngForm" (ngSubmit)="onSubmit(competitionForm)">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Competition Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Date</label>
+                        <!-- Use ngModel for two-way binding with the component property -->
+                        <input name="date" type="date" class="form-control" id="date" [(ngModel)]="competition.date" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Start Time</label>
+                        <input name="startTime" type="time" class="form-control" id="startTime" [(ngModel)]="competition.startTime" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">End Time</label>
+                        <input name="endTime" type="time" class="form-control" id="endTime" [(ngModel)]="competition.endTime" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <input name="location" type="text" class="form-control" id="location" [(ngModel)]="competition.location" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Amount</label>
+                        <input name="amount" type="number" class="form-control" id="amount" [(ngModel)]="competition.amount" required />
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-secondary">Cancel</button>
+
+                    <button type="submit" name="save" class="btn btn-primary task-action-btn" id="save" [disabled]="competitionForm.invalid">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

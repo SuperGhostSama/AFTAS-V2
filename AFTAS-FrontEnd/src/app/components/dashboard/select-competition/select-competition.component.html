@@ -1,0 +1,13 @@
+<div class="border border-5 p-5">
+  <form>
+    <div class="mb-3">
+      <label for="selectOption" class="form-label">Select Competition</label>
+      <select class="form-select" id="selectOption" name="selectOption" [(ngModel)]="selectedCompetitionId" (ngModelChange)="onSelectChange()">
+        <option *ngFor="let competition of competitions" [value]="competition.id">
+          {{ competition.code }}
+        </option>
+      </select>
+    </div>
+
+  </form>
+</div>
