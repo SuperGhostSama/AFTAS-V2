@@ -6,14 +6,20 @@ import com.example.aftas.config.handlers.response.ResponseMessage;
 import com.example.aftas.model.Competition;
 import com.example.aftas.model.Ranking;
 import com.example.aftas.service.CompetitionService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/competitions")
+
 public class CompetitionController {
 
     private final CompetitionService competitionService;
@@ -32,6 +38,7 @@ public class CompetitionController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @GetMapping
     public ResponseEntity getAllCompetitions() {
         List<Competition> competitions = competitionService.getAllCompetitions();

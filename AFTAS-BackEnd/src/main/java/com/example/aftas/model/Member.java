@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Builder
@@ -81,8 +82,16 @@ public class Member implements UserDetails {
     //SpringSecurity
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getName())).toList();
+        List<GrantedAuthority> authorities = role.getAuthorities().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+                .collect(Collectors.toList());
+
+        // Include the role name itself as an authority
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+        return authorities;
     }
+
 
     @Override
     public String getPassword() {

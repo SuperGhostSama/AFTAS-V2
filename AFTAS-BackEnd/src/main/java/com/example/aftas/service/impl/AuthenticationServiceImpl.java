@@ -35,11 +35,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new RuntimeException("Email already exists. Please choose a different email.");
         }
 
-        // Check if membership number already exists
-        if (userRepository.existsByMembershipNumber(request.getMembershipNumber())) {
-            throw new RuntimeException("Membership number already exists. Please choose a different membership number.");
-        }
-
         // Generate a random membership number and check for uniqueness
         int randomMembershipNumber;
         do {
