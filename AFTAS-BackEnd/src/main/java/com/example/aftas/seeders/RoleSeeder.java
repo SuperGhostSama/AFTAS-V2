@@ -152,14 +152,14 @@ public class RoleSeeder implements CommandLineRunner {
 
 
         // Create roles and associate authorities
-        Role userRole = Role.builder()
-                .name("MEMBER")
+        Role memberRole = Role.builder()
+                .name("ROLE_MEMBER")
                 .authorities(Arrays.asList(viewCompetitions, viewMyCompetitions, viewTop3))
                 .isDefault(true)
                 .build();
 
-        Role adminRole = Role.builder()
-                .name("JURY")
+        Role juryRole = Role.builder()
+                .name("ROLE_JURY")
                 .authorities(Arrays.asList(
                         viewLevels, viewOneLevel, createLevel, updateLevel, deleteLevel,
                         viewFishes, viewOneFish, createFish, updateFish, deleteFish,
@@ -169,14 +169,14 @@ public class RoleSeeder implements CommandLineRunner {
                         ))
                 .build();
 
-        Role superAdminRole = Role.builder()
-                .name("MANAGER")
+        Role managerRole = Role.builder()
+                .name("ROLE_MANAGER")
                 .authorities(authorityRepository.findAll())
                 .build();
 
-        roleService.save(userRole, true);
-        roleService.save(adminRole, true);
-        roleService.save(superAdminRole, true);
+        roleService.save(memberRole, true);
+        roleService.save(juryRole, true);
+        roleService.save(managerRole, true);
     }
 
 }
