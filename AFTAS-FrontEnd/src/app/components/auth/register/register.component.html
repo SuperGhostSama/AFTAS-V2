@@ -1,0 +1,50 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="familyName" class="form-label">Family Name</label>
+            <input type="text" class="form-control" id="familyName" formControlName="familyName" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="nationality" class="form-label">Nationality</label>
+            <input type="text" class="form-control" id="nationality" formControlName="nationality" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="identityDocumentType" class="form-label">Identity Document Type</label>
+            <select class="form-select" id="identityDocumentType" formControlName="identityDocumentType" required>
+              <option value="NATIONAL_IDENTITY_CARD">National Identity Card</option>
+              <option value="PASSPORT">Passport</option>
+              <option value="DRIVING_LICENSE">DRIVING_LICENSE</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+          </div>
+  
+          <div class="mb-3">
+            <label for="identityNumber" class="form-label">Identity Number</label>
+            <input type="text" class="form-control" id="identityNumber" formControlName="identityNumber" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+          </div>
+  
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" required>
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

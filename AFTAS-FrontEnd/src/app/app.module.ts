@@ -14,9 +14,15 @@ import { CompetitionsModalComponent } from './components/dashboard/competitions-
 import { SelectCompetitionComponent } from './components/dashboard/select-competition/select-competition.component';
 import { ViewMembersComponent } from './components/dashboard/view-members/view-members.component';
 import { AddMembersComponent } from './components/dashboard/add-members/add-members.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AddMemberCompetitionComponent } from './components/dashboard/add-member-competition/add-member-competition.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './interceptor/auth/auth.interceptor';
+import { AuthLayoutComponent } from './components/layout/auth-layout/auth-layout.component';
+import { DasboardLayoutComponent } from './components/layout/dasboard-layout/dasboard-layout.component';
+import { NavbarComponent } from './components/navigation/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -33,14 +39,22 @@ import { AddMemberCompetitionComponent } from './components/dashboard/add-member
     ViewMembersComponent,
     AddMembersComponent,
     AddMemberCompetitionComponent,
+    LoginComponent,
+    RegisterComponent,
+    AuthLayoutComponent,
+    DasboardLayoutComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
