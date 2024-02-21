@@ -25,4 +25,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findMembersByCompetitionId(@Param("competitionId") Long competitionId);
 
     Optional<Member> findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }
