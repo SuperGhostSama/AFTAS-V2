@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/members")
-@PreAuthorize("hasRole('ROLE_MANAGER')")
 public class MemberController {
     private final MemberService memberService;
 
