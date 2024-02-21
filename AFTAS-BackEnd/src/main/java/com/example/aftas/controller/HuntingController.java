@@ -7,6 +7,7 @@ import com.example.aftas.model.Hunting;
 import com.example.aftas.service.HuntingService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class HuntingController {
         this.huntingService = huntingService;
     }
 
+    @PreAuthorize("hasAnyAuthority('CREATE_HUNTING')")
     // add hunting result
     @PostMapping("/add-hunting-result")
     public ResponseEntity addHuntingResult(@Valid @RequestBody HuntingRequestDTO huntingRequestDTO) {
@@ -32,12 +34,14 @@ public class HuntingController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_ONE_HUNTING')")
     // get hunting by id
     @GetMapping("/{id}")
     public ResponseEntity getHuntingById(@PathVariable Long id) {
         return ResponseMessage.ok(huntingService.getHuntingById(id), "Success");
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_HUNTING_BY_COMPETITION')")
     // get huntings by competition
     @GetMapping("/competition/{competitionId}")
     public ResponseEntity getHuntingsByCompetition(@PathVariable Long competitionId) {
@@ -49,6 +53,7 @@ public class HuntingController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_HUNTING_BY_COMPETITION_AND_MEMBER')")
     // get huntings by competition and member
     @GetMapping("/competition/{competitionId}/member/{memberId}")
     public ResponseEntity getHuntingsByCompetitionAndMember(@PathVariable Long competitionId, @PathVariable Long memberId) {
@@ -60,6 +65,7 @@ public class HuntingController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('UPDATE_HUNTING')")
     // update hunting
     @PutMapping("/{id}")
     public ResponseEntity updateHunting(@RequestBody HuntingUpdateRequestDTO huntingUpdateRequestDTO, @PathVariable Long id) {
@@ -71,6 +77,7 @@ public class HuntingController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('DELETE_HUNTING')")
     // delete hunting
     @DeleteMapping("/{id}")
     public ResponseEntity deleteHunting(@PathVariable Long id) {

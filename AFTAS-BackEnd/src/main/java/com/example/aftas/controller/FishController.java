@@ -6,6 +6,7 @@ import com.example.aftas.model.Fish;
 import com.example.aftas.service.FishService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class FishController {
         this.fishService = fishService;
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_ONE_FISH')")
     @GetMapping("{id}")
     public ResponseEntity getFishById(@PathVariable Long id) {
         Fish fish = fishService.getFishById(id);
@@ -30,6 +32,7 @@ public class FishController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_FISHES')")
     @GetMapping
     public ResponseEntity getAllFishes() {
         List<Fish> fishes = fishService.getAllFishes();
@@ -40,6 +43,7 @@ public class FishController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('CREATE_FISH')")
     @PostMapping
     public ResponseEntity addFish(@Valid @RequestBody FishRequestDTO fishRequestDTO) {
         Fish fish = fishService.addFish(fishRequestDTO.toFish());
@@ -50,6 +54,7 @@ public class FishController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('UPDATE_FISH')")
     @PutMapping("/{id}")
     public ResponseEntity updateFish(@Valid @RequestBody FishRequestDTO fishRequestDTO, @PathVariable Long id) {
         Fish fish = fishService.updateFish(fishRequestDTO.toFish(), id);
@@ -60,6 +65,7 @@ public class FishController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('DELETE_FISH')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteFish(@PathVariable Long id) {
         Fish fish = fishService.getFishById(id);

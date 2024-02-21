@@ -8,6 +8,7 @@ import com.example.aftas.model.Ranking;
 import com.example.aftas.service.RankingService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,12 +23,14 @@ public class RankingController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('VIEW_RANKING_BY_MEMBER_AND_COMPETITION')")
     @GetMapping("/{competitionId}/{memberId}")
     public ResponseEntity getRankingsByMemberIdAndCompetitionId(@PathVariable Long competitionId, @PathVariable Long memberId) {
         Ranking ranking = rankingService.getRankingsByMemberIdAndCompetitionId(competitionId, memberId);
         return ResponseMessage.ok(ranking,"Success");
     }
 
+    @PreAuthorize("hasAnyAuthority('UPDATE_RANKING_BY_MEMBER_AND_COMPETITION')")
     @PutMapping("/{competitionId}/{memberId}")
     public ResponseEntity updateRanking(@Valid @RequestBody UpdateRankingRequestDTO updateRankingRequestDTO, @PathVariable Long competitionId, @PathVariable Long memberId) {
         Ranking ranking1 = rankingService.updateRanking(updateRankingRequestDTO.toRanking(), competitionId , memberId);
@@ -35,6 +38,7 @@ public class RankingController {
     }
 
 
+    @PreAuthorize("hasAnyAuthority('REGISTER_MEMBER_TO_COMPETITION')")
     @PostMapping("/register")
     public ResponseEntity registerMemberForCompetition(@Valid @RequestBody Ranking ranking) {
         Ranking registeredRanking = rankingService.registerMemberForCompetition(ranking);
@@ -42,6 +46,7 @@ public class RankingController {
 
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_TOP_3')")
     @GetMapping("/top3/{competitionId}")
     public ResponseEntity<List<TopRankingDTO>> getTop3RankingsByCompetitionId(@PathVariable Long competitionId) {
         List<TopRankingDTO> top3Rankings = rankingService.findTop3ByCompetitionIdOrderByScoreDesc(competitionId);

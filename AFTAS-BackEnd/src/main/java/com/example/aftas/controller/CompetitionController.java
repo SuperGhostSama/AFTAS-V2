@@ -28,6 +28,7 @@ public class CompetitionController {
         this.competitionService = competitionService;
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_ONE_COMPETITION')")
     @GetMapping("/{id}")
     public ResponseEntity getCompetitionById(@PathVariable Long id) {
         Competition competition = competitionService.getCompetitionById(id);
@@ -38,7 +39,8 @@ public class CompetitionController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_MANAGER')")
+//    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    @PreAuthorize("hasAnyAuthority('VIEW_COMPETITIONS')")
     @GetMapping
     public ResponseEntity getAllCompetitions() {
         List<Competition> competitions = competitionService.getAllCompetitions();
@@ -49,6 +51,7 @@ public class CompetitionController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('CREATE_COMPETITION')")
     @PostMapping
     public ResponseEntity addCompetition(@Valid @RequestBody CompetitionRequestDTO competitionRequestDTO) {
         Competition competition1 = competitionService.addCompetition(competitionRequestDTO.toCompetition());
@@ -59,6 +62,7 @@ public class CompetitionController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PutMapping("/{id}")
     public ResponseEntity updateCompetition(@RequestBody CompetitionRequestDTO competitionRequestDTO, @PathVariable Long id) {
         System.out.println(competitionRequestDTO);
@@ -70,11 +74,13 @@ public class CompetitionController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('DELETE_COMPETITION')")
     @DeleteMapping("/{id}")
     public void deleteCompetition(@PathVariable Long id) {
         competitionService.deleteCompetition(id);
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_COMPETITIONS')")
     @GetMapping("/upcoming")
     public ResponseEntity getUpcomingCompetitions() {
         List<Competition> upcomingCompetitions = competitionService.findUpcomingCompetitions();

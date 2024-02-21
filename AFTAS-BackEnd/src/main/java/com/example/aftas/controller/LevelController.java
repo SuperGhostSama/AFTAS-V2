@@ -6,6 +6,7 @@ import com.example.aftas.model.Level;
 import com.example.aftas.service.LevelService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class LevelController {
         this.levelService = levelService;
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_ONE_LEVEL')")
     @GetMapping("/{id}")
     public ResponseEntity getLevelById(@PathVariable Long id) {
         Level level = levelService.getLevelById(id);
@@ -31,6 +33,7 @@ public class LevelController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('VIEW_LEVELS')")
     @GetMapping
     public ResponseEntity getAllLevels() {
         List<Level> levels = levelService.getAllLevels();
@@ -41,6 +44,7 @@ public class LevelController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('CREATE_LEVEL')")
     @PostMapping
     public ResponseEntity addLevel(@RequestBody Level level) {
         Level level1 = levelService.addLevel(level);
@@ -51,6 +55,7 @@ public class LevelController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('UPDATE_LEVEL')")
     @PutMapping("/{id}")
     public ResponseEntity updateLevel(@Valid @RequestBody Level level, @PathVariable Long id) {
         Level level1 = levelService.updateLevel(level, id);
@@ -61,6 +66,7 @@ public class LevelController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('DELETE_LEVEL')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteLevel(@PathVariable Long id) {
         Level level = levelService.getLevelById(id);

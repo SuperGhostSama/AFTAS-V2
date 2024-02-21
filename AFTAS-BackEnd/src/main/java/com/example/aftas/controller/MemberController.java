@@ -6,12 +6,14 @@ import com.example.aftas.model.Member;
 import com.example.aftas.service.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/members")
+@PreAuthorize("hasRole('ROLE_MANAGER')")
 public class MemberController {
     private final MemberService memberService;
 
