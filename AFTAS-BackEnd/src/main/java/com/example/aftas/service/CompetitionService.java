@@ -14,4 +14,5 @@ public interface CompetitionService {
     void deleteCompetition(Long id);
     List<Competition> findUpcomingCompetitions();
 
+    List<Competition> getCompetitionsByEmail(String email);
 }

@@ -6,25 +6,23 @@ import com.example.aftas.model.Competition;
 import com.example.aftas.model.Member;
 import com.example.aftas.model.Ranking;
 import com.example.aftas.repository.CompetitionRepository;
-import com.example.aftas.repository.RankingRepository;
+import com.example.aftas.repository.MemberRepository;
 import com.example.aftas.service.CompetitionService;
-import com.example.aftas.service.MemberService;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
 
     private final CompetitionRepository competitionRepository;
-    public CompetitionServiceImpl(CompetitionRepository competitionRepository) {
+    private final MemberRepository memberRepository;
+    public CompetitionServiceImpl(CompetitionRepository competitionRepository, MemberRepository memberRepository) {
         this.competitionRepository = competitionRepository;
+        this.memberRepository = memberRepository;
     }
     @Override
     public Competition getCompetitionById(Long id) {
@@ -119,4 +117,23 @@ public class CompetitionServiceImpl implements CompetitionService {
         return competitionRepository.findUpcomingCompetitions(currentLocalTime);
     }
 
+    @Override
+    public List<Competition> getCompetitionsByEmail(String email) {
+        // Find the member by email
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Member not found for email: " + email));
+
+        // Check if the member has rankings
+        if (member.getRanking().isEmpty()) {
+            throw new RuntimeException("Member with email " + email + " is not in any competition");
+        }
+
+        // Get the list of competitions associated with the member
+        List<Competition> competitions = member.getRanking().stream()
+                .map(Ranking::getCompetition)
+                .distinct()
+                .toList();
+
+        return competitions;
+    }
 }

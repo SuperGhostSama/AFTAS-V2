@@ -1,6 +1,7 @@
 package com.example.aftas.service.impl;
 
 import com.example.aftas.config.handlers.exception.CustomException;
+import com.example.aftas.model.Competition;
 import com.example.aftas.model.Member;
 import com.example.aftas.model.Role;
 import com.example.aftas.repository.MemberRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import com.example.aftas.model.Ranking;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -80,7 +82,6 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.deleteById(id);
     }
 
-
     @Override
     public List<Member> getMembersByCompetitionId(Long competitionId) {
         // Implement the logic to fetch members by competition ID
@@ -112,5 +113,8 @@ public class MemberServiceImpl implements MemberService {
     public Optional<Member> getById(Long id) {
         return Optional.empty();
     }
+
+
+
 
 }

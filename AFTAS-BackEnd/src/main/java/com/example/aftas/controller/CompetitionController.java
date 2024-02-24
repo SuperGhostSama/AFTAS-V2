@@ -8,6 +8,7 @@ import com.example.aftas.model.Ranking;
 import com.example.aftas.service.CompetitionService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/competitions")
@@ -88,6 +90,18 @@ public class CompetitionController {
             return ResponseMessage.notFound("No upcoming competitions found");
         } else {
             return ResponseMessage.ok(upcomingCompetitions, "Success");
+        }
+    }
+
+    @PreAuthorize("hasAnyAuthority('VIEW_COMPETITIONS')")
+    @PostMapping("/member")
+    public ResponseEntity<List<Competition>> getCompetitionsByEmail(@RequestBody Map<String, String> request) {
+        try {
+            String email = request.get("email");
+            List<Competition> competitions = competitionService.getCompetitionsByEmail(email);
+            return ResponseEntity.ok().body(competitions);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 
