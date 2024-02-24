@@ -1,4 +1,4 @@
-package com.example.aftas.dto.response;
+package com.example.aftas.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RefreshTokenResponse {
-    private String accessToken;
+public class RefreshTokenRequestDTO {
     private String refreshToken;
 }

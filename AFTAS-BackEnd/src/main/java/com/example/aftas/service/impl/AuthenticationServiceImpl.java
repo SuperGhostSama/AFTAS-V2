@@ -1,8 +1,10 @@
 package com.example.aftas.service.impl;
 
 import com.example.aftas.dto.request.AuthenticationRequest;
+import com.example.aftas.dto.request.RefreshTokenRequestDTO;
 import com.example.aftas.dto.request.RegisterRequest;
 import com.example.aftas.dto.response.AuthenticationResponse;
+import com.example.aftas.dto.response.RefreshTokenResponseDTO;
 import com.example.aftas.model.Member;
 import com.example.aftas.repository.MemberRepository;
 import com.example.aftas.security.JwtService;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -75,10 +78,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         );
 
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+
+        // Generate access token and refresh token
+        var accessToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+
+        // Set the refresh token in the Member entity
+        user.setRefreshToken(refreshToken);
+
+        // Save the updated Member entity
+        userRepository.save(user);
 
         return AuthenticationResponse.builder()
-                .token(jwtToken)
+                .token(accessToken)
+                .refreshToken(refreshToken)
                 .email(user.getEmail())
                 .role(user.getRole())
                 .name(user.getName())
@@ -87,9 +100,49 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
 
+
     private int generateRandomMembershipNumber() {
         Random random = new Random();
         return random.nextInt(1000000) + 1;
     }
+
+
+    @Override
+    public RefreshTokenResponseDTO refreshToken(RefreshTokenRequestDTO refreshTokenRequest) {
+        String refreshToken = refreshTokenRequest.getRefreshToken();
+
+        // Extract username from the refresh token
+        String username = jwtService.extractUserName(refreshToken);
+
+        // Find the user by username
+        Member user = userRepository.findByEmail(username).orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Verify if the stored refresh token matches the provided one
+        if (!Objects.equals(user.getRefreshToken(), refreshToken)) {
+            throw new RuntimeException("Invalid refresh token");
+        }
+
+        // Verify if the refresh token is expired
+        if (jwtService.isTokenExpired(refreshToken)) {
+            throw new RuntimeException("Expired refresh token");
+        }
+
+        // Generate a new access token
+        String newAccessToken = jwtService.generateToken(user);
+
+        // Expire the old refresh token and generate a new one
+        String newRefreshToken = jwtService.generateRefreshToken(user);
+
+        // Update the refresh token in the Member entity
+        user.setRefreshToken(newRefreshToken);
+        userRepository.save(user);
+
+        // Create and return the response DTO
+        return RefreshTokenResponseDTO.builder()
+                .accessToken(newAccessToken)
+                .refreshToken(newRefreshToken)
+                .build();
+    }
+
 
 }

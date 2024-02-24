@@ -1,8 +1,10 @@
 package com.example.aftas.controller.auth;
 
 import com.example.aftas.dto.request.AuthenticationRequest;
+import com.example.aftas.dto.request.RefreshTokenRequestDTO;
 import com.example.aftas.dto.request.RegisterRequest;
 import com.example.aftas.dto.response.AuthenticationResponse;
+import com.example.aftas.dto.response.RefreshTokenResponseDTO;
 import com.example.aftas.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,4 +30,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
+    @PostMapping("/refresh-token")
+    public ResponseEntity<RefreshTokenResponseDTO> refreshToken(
+            @RequestBody RefreshTokenRequestDTO refreshTokenRequest) {
+        RefreshTokenResponseDTO response = authenticationService.refreshToken(refreshTokenRequest);
+        return ResponseEntity.ok(response);
+    }
 }

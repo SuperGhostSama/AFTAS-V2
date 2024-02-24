@@ -79,6 +79,8 @@ public class Member implements UserDetails {
     @ManyToOne
     private Role role;
 
+    private String refreshToken;
+
     //SpringSecurity
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
