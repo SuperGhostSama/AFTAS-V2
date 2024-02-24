@@ -9,6 +9,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { authGuard } from './guard/auth/auth.guard';
 import { AuthLayoutComponent } from './components/layout/auth-layout/auth-layout.component';
 import { DasboardLayoutComponent } from './components/layout/dasboard-layout/dasboard-layout.component';
+import { MyCompetitionsComponent } from './components/dashboard/my-competitions/my-competitions.component';
+import { juryGuard } from './guard/jury/jury.guard';
 
 const routes: Routes = [
   {
@@ -26,8 +28,9 @@ const routes: Routes = [
     children: [
       { path: 'Competitions', component: CompetitionsComponent, canActivate: [authGuard] },
       { path: 'Members', component: MembersComponent, canActivate: [authGuard] },
-      { path: 'Podium', component: PodiumComponent, canActivate: [authGuard] },
-      { path: 'Results', component: ResultsComponent, canActivate: [authGuard] }
+      { path: 'Podium', component: PodiumComponent },
+      { path: 'Results', component: ResultsComponent, canActivate: [authGuard] },
+      { path: 'MyCompetitions', component: MyCompetitionsComponent },
     ],
   }
 ]; 

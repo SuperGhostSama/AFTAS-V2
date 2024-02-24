@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./side-bar.component.css']
 })
 export class SideBarComponent {
+  userRole: string | null = localStorage.getItem('role');
 
   constructor(private router: Router) {}
-
 
   logout(): void {
     localStorage.clear();

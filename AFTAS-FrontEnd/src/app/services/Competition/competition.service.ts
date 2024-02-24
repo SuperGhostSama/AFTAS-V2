@@ -33,5 +33,16 @@ export class CompetitionService {
     return this.http.delete(`${environment.competitionsApi}/${id}`);
   }
 
+  getMyCompetitions(): Observable<any> {
+    const email = localStorage.getItem('email');
+
+    if (!email) {
+      return new Observable(); 
+    }
+
+    const requestBody = { email };
+    console.log('Request body:', requestBody);
+    return this.http.post(`${environment.competitionsApi}/member`, requestBody);
+  }
 
 }

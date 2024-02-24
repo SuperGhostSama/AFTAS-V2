@@ -19,6 +19,7 @@ export class LoginComponent {
         console.log('Authentication successful:', response);
 
         localStorage.setItem('authToken', response.token);
+        localStorage.setItem('refreshToken', response.refreshToken);
         localStorage.setItem('name', response.name);
         localStorage.setItem('familyName', response.familyName);
         localStorage.setItem('email', response.email);
@@ -27,7 +28,7 @@ export class LoginComponent {
         const authorityNames = response.role.authorities.map((authority: any) => authority.name);
         localStorage.setItem('authorities', JSON.stringify(authorityNames));
 
-        this.router.navigate(['/Competitions']);
+        this.router.navigate(['/MyCompetitions']);
       },
       (error) => {
         console.error('Authentication failed:', error);

@@ -23,6 +23,7 @@ import { AuthInterceptor } from './interceptor/auth/auth.interceptor';
 import { AuthLayoutComponent } from './components/layout/auth-layout/auth-layout.component';
 import { DasboardLayoutComponent } from './components/layout/dasboard-layout/dasboard-layout.component';
 import { NavbarComponent } from './components/navigation/navbar/navbar.component';
+import { MyCompetitionsComponent } from './components/dashboard/my-competitions/my-competitions.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { NavbarComponent } from './components/navigation/navbar/navbar.component
     AuthLayoutComponent,
     DasboardLayoutComponent,
     NavbarComponent,
+    MyCompetitionsComponent,
   ],
   imports: [
     BrowserModule,
