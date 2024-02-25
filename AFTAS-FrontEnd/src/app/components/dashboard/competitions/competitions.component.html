@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-end mb-3">
+<div class="d-flex justify-content-end mb-3" *ngIf="userRole === 'ROLE_JURY' || userRole === 'ROLE_MANAGER'">
     <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-competition"><i class="bi bi-plus-circle me-1"></i>Add Competition</a>
 </div>
 

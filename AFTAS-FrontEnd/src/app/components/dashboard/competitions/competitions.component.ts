@@ -10,6 +10,7 @@ declare var $: any;
 export class CompetitionsComponent implements OnInit, AfterViewInit, OnDestroy {
   competitions: any[] = [];
   dataTable: any;
+  userRole: string | null = localStorage.getItem('role');
 
   constructor(private competitionService: CompetitionService) {}
 
