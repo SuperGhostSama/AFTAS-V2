@@ -1,7 +1,7 @@
 package com.example.aftas.service.impl;
 
 import com.example.aftas.config.handlers.exception.CustomException;
-import com.example.aftas.model.Competition;
+import com.example.aftas.dto.response.NotVerifiedMembersResponseDTO;
 import com.example.aftas.model.Member;
 import com.example.aftas.model.Role;
 import com.example.aftas.repository.MemberRepository;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import com.example.aftas.model.Ranking;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -127,4 +127,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
+    @Override
+    public List<NotVerifiedMembersResponseDTO> getAllMembersNotVerified() {
+        List<Member> notVerifiedMembers = memberRepository.findAllByIsVerified(false);
+        return notVerifiedMembers.stream()
+                .map(member -> NotVerifiedMembersResponseDTO.builder()
+                        .id(member.getId())
+                        .name(member.getName())
+                        .familyName(member.getFamilyName())
+                        .email(member.getEmail())
+                        .isVerified(member.getIsVerified())
+                        .build())
+                .collect(Collectors.toList());
+    }
 }

@@ -2,6 +2,7 @@ package com.example.aftas.controller;
 
 import com.example.aftas.dto.MemberRequestDTO;
 import com.example.aftas.config.handlers.response.ResponseMessage;
+import com.example.aftas.dto.response.NotVerifiedMembersResponseDTO;
 import com.example.aftas.model.Member;
 import com.example.aftas.service.MemberService;
 import jakarta.validation.Valid;
@@ -97,5 +98,16 @@ public class MemberController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    @GetMapping("/not-verified/all")
+    public ResponseEntity<List<NotVerifiedMembersResponseDTO>> getAllMembersNotVerified() {
+        List<NotVerifiedMembersResponseDTO> notVerifiedMembers = memberService.getAllMembersNotVerified();
+
+        if (!notVerifiedMembers.isEmpty()) {
+            return ResponseMessage.ok(notVerifiedMembers, "Not verified members found");
+        } else {
+            return ResponseMessage.notFound("No not verified members found");
+        }
+    }
 
 }

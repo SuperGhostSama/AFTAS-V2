@@ -1,5 +1,6 @@
 package com.example.aftas.service;
 
+import com.example.aftas.dto.response.NotVerifiedMembersResponseDTO;
 import com.example.aftas.model.Member;
 import com.example.aftas.model.Role;
 
@@ -20,4 +21,6 @@ public interface MemberService {
     Role grantRoleToUser(Long userId, Long roleId);
 
     Member enableMemberAccount(Long memberId);
+
+    List<NotVerifiedMembersResponseDTO> getAllMembersNotVerified();
 }
