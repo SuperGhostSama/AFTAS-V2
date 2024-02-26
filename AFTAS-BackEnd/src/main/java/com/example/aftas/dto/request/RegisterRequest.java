@@ -23,5 +23,6 @@ public class RegisterRequest {
     private String identityNumber;
     private String password;
     private int membershipNumber;
+    private Boolean isVerified;
 
 }

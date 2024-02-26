@@ -17,5 +17,4 @@ public class AuthenticationResponse{
     private String familyName;
     private String email;
     private Role role;
-
 }

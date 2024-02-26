@@ -81,6 +81,8 @@ public class Member implements UserDetails {
 
     private String refreshToken;
 
+    private Boolean isVerified;
+
     //SpringSecurity
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

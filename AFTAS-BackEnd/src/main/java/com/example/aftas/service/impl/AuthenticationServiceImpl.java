@@ -57,6 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(roleService.findDefaultRole().orElse(null))
                 .membershipNumber(randomMembershipNumber)
                 .accessDate(accessDate)
+                .isVerified(false)
                 .build();
 
         userRepository.save(user);
@@ -79,6 +80,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
 
+        // Check if the account is verified
+        if (!user.getIsVerified()) {
+            // Customize the exception handling for account verification error
+            throw new IllegalArgumentException("Account not verified. Please verify your account.");
+        }
+
         // Generate access token and refresh token
         var accessToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
@@ -98,6 +105,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .familyName(user.getFamilyName())
                 .build();
     }
+
+    // Custom exception class for account not verified
+    class AccountNotVerifiedException extends RuntimeException {
+        public AccountNotVerifiedException(String message) {
+            super(message);
+        }
+    }
+
 
 
 
