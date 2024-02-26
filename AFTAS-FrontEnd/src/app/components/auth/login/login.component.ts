@@ -38,7 +38,7 @@ export class LoginComponent {
       },
       (error) => {
         console.error('Authentication failed:', error);
-        this.notificationService.show(['Authentication failed'], 'error');
+        this.notificationService.show([error.error.message], 'error');
       }
     );
   }

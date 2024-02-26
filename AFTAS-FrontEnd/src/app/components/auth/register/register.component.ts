@@ -44,7 +44,7 @@ export class RegisterComponent {
         (error) => {
           // Handle registration error
           console.error('Registration error:', error);
-          this.notificationService.show(['Registration failed'], 'error');
+          this.notificationService.show([error.error.message], 'error');
         }
       );
     }
