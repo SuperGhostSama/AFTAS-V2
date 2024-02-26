@@ -24,6 +24,7 @@ import { AuthLayoutComponent } from './components/layout/auth-layout/auth-layout
 import { DasboardLayoutComponent } from './components/layout/dasboard-layout/dasboard-layout.component';
 import { NavbarComponent } from './components/navigation/navbar/navbar.component';
 import { MyCompetitionsComponent } from './components/dashboard/my-competitions/my-competitions.component';
+import { NotificationsComponent } from './components/utils/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MyCompetitionsComponent } from './components/dashboard/my-competitions/
     DasboardLayoutComponent,
     NavbarComponent,
     MyCompetitionsComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

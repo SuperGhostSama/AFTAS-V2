@@ -1,0 +1,7 @@
+<div (click)="closeNotification()" *ngIf="messages && messages.length > 0" class="notification" [ngClass]="{'success': type === 'success', 'warning': type === 'warning', 'error': type === 'error'}">   
+  <div *ngFor="let message of messages" class="d-flex text-center">
+    <i class="bi bi-exclamation-circle me-2"></i>
+    <span> {{ message }}</span>
+  </div>
+
+</div>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/Notification/notification.service';
 import { AuthService } from 'src/app/services/auth/auth.service'; 
 
 @Component({
@@ -11,7 +12,11 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class LoginComponent {
   loginRequest = { email: '', password: '' };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private notificationService: NotificationService
+    ) {}
 
   onSubmit() {
     this.authService.authenticate(this.loginRequest).subscribe(
@@ -29,9 +34,11 @@ export class LoginComponent {
         localStorage.setItem('authorities', JSON.stringify(authorityNames));
 
         this.router.navigate(['/MyCompetitions']);
+        this.notificationService.show(['You have been successfully logged in'], 'success');
       },
       (error) => {
         console.error('Authentication failed:', error);
+        this.notificationService.show(['Authentication failed'], 'error');
       }
     );
   }

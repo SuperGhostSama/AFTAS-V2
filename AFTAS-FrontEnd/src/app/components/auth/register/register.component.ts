@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service'; 
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/Notification/notification.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,7 +15,8 @@ export class RegisterComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -34,13 +36,15 @@ export class RegisterComponent {
         (response) => {
           // Handle successful registration
           console.log('Registration successful:', response);
-          // You might want to navigate to a different page after registration
+          
           this.router.navigate(['/login']);
+          this.notificationService.show(['You have been successfully registered'], 'success');
+
         },
         (error) => {
           // Handle registration error
           console.error('Registration error:', error);
-          // You can show an error message to the user or handle it in another way
+          this.notificationService.show(['Registration failed'], 'error');
         }
       );
     }
