@@ -1,7 +1,6 @@
 package com.example.aftas.service;
 
 import com.example.aftas.dto.TopRankingDTO;
-import com.example.aftas.model.RankId;
 import com.example.aftas.model.Ranking;
 
 import java.util.List;

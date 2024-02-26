@@ -35,6 +35,7 @@ public class MemberController {
         return ResponseMessage.ok( memberService.getMemberById(id), "Success");
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PostMapping
     public ResponseEntity addMember(@Valid @RequestBody MemberRequestDTO memberRequestDTO) {
         Member member1 = memberService.addMember(memberRequestDTO.toMember());
@@ -45,6 +46,7 @@ public class MemberController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @PutMapping("/{id}")
     public ResponseEntity updateMember(@RequestBody Member member, @PathVariable Long id) {
         Member member1 = memberService.updateMember(member, id);
@@ -55,6 +57,7 @@ public class MemberController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteMember(@PathVariable Long id) {
         Member member = memberService.getMemberById(id);
