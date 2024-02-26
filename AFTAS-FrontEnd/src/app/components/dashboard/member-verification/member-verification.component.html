@@ -1,0 +1,17 @@
+<div class="container mt-4">
+    <h2>Not Verified Members</h2>
+    
+    <div class="form-group">
+        <form (ngSubmit)="onSubmit()">
+            <label for="memberSelect">Select Member:</label>
+            <select id="memberSelect" class="selectpicker form-control" [(ngModel)]="selectedMemberId" name="member">
+                <option *ngFor="let member of notVerifiedMembers" [value]="member.id">
+                {{ member.name }} {{ member.familyName }}
+                </option>
+            </select>
+            <button class="btn btn-success mt-2" type="submit">Verify</button>
+        </form>
+    </div>
+    
+</div>
+  

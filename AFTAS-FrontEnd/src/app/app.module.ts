@@ -25,6 +25,7 @@ import { DasboardLayoutComponent } from './components/layout/dasboard-layout/das
 import { NavbarComponent } from './components/navigation/navbar/navbar.component';
 import { MyCompetitionsComponent } from './components/dashboard/my-competitions/my-competitions.component';
 import { NotificationsComponent } from './components/utils/notifications/notifications.component';
+import { MemberVerificationComponent } from './components/dashboard/member-verification/member-verification.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { NotificationsComponent } from './components/utils/notifications/notific
     NavbarComponent,
     MyCompetitionsComponent,
     NotificationsComponent,
+    MemberVerificationComponent,
   ],
   imports: [
     BrowserModule,

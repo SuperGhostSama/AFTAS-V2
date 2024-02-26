@@ -37,4 +37,14 @@ export class MemberService {
     const url = `${environment.membersApi}/byCompetition/${competitionId}`;
     return this.http.get(url);
   }
+
+  getAllMembersNotVerified(): Observable<any> {
+    return this.http.get(`${environment.membersApi}/not-verified/all`);
+  }
+
+  enableMemberAccount(id: number): Observable<any> {
+    const url = `${environment.membersApi}/enable/${id}`;
+    return this.http.put(url, {});
+  }
+  
 }

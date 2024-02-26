@@ -47,6 +47,13 @@
                 </a>
             </li>
 
+            <li  *ngIf="userRole === 'ROLE_JURY' || userRole === 'ROLE_MANAGER'">
+                <a routerLink="/Verification" routerLinkActive="active" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-journal-text text-black me-1"></i> 
+                    <span class="ms-1 d-none d-sm-inline">Verify Member</span> 
+                </a>
+            </li>
+
             <li>
                 <a class="nav-link px-0 align-middle">
                     <i class="fs-4 bi bi-box-arrow-right text-black me-1"></i> 
