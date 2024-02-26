@@ -116,5 +116,15 @@ public class MemberServiceImpl implements MemberService {
 
 
 
+    @Override
+    public Member enableMemberAccount(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Member with id " + memberId + " not found"));
+        if (member.getIsVerified()) {
+            throw new IllegalArgumentException("Member already validated");
+        }
+        member.setIsVerified(true);
+        return memberRepository.save(member);
+    }
+
 
 }

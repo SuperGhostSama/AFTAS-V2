@@ -85,4 +85,17 @@ public class MemberController {
         return ResponseEntity.ok(members);
     }
 
+
+    @PreAuthorize("hasRole('ROLE_MANAGER')")
+    @PutMapping("/enable/{id}")
+    public ResponseEntity enableMemberAccount(@PathVariable Long id) {
+        try {
+            Member enabledMember = memberService.enableMemberAccount(id);
+            return ResponseMessage.ok(enabledMember, "Member account enabled successfully");
+        } catch (IllegalArgumentException e) {
+            return ResponseMessage.badRequest(e.getMessage());
+        }
+    }
+
+
 }

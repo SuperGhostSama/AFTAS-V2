@@ -19,4 +19,5 @@ public interface MemberService {
 
     Role grantRoleToUser(Long userId, Long roleId);
 
+    Member enableMemberAccount(Long memberId);
 }

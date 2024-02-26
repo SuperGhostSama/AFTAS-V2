@@ -83,7 +83,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // Check if the account is verified
         if (!user.getIsVerified()) {
             // Customize the exception handling for account verification error
-            throw new IllegalArgumentException("Account not verified. Please verify your account.");
+            throw new IllegalArgumentException("Account not verified.");
         }
 
         // Generate access token and refresh token
